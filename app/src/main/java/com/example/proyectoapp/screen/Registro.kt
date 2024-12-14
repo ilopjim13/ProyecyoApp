@@ -9,6 +9,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import com.example.logintumblr.R
 import com.example.proyectoapp.navigation.Login
 import com.example.proyectoapp.usuarioViewModel.UsuarioViewModel
 
@@ -43,10 +46,6 @@ fun Registro(navController: NavController, usuarioViewModel: UsuarioViewModel,co
     val showDialog by usuarioViewModel.showDialog.observeAsState(false)
     val errorTexto by usuarioViewModel.errorTexto.observeAsState("")
 
-    if (showDialog) {
-        DialogLogin("Te has registrado correctamente a Tumblr") { usuarioViewModel.showDialog(false) }
-    }
-
     Box(Modifier.fillMaxSize()) {
 
         //Image(
@@ -55,6 +54,15 @@ fun Registro(navController: NavController, usuarioViewModel: UsuarioViewModel,co
         //    Modifier.fillMaxSize(),
         //    contentScale = ContentScale.Crop
         //)
+
+        Box(modifier.padding(top = 16.dp).align(Alignment.TopEnd)) {
+            IconButton({navController.popBackStack()}) {
+                Icon(
+                    imageVector = Icons.Filled.Close,
+                    contentDescription = "Cerrar"
+                )
+            }
+        }
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
 

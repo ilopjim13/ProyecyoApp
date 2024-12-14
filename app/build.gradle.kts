@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.logintumblr"
-    compileSdk = 34
+    namespace = "com.example.proyectoapp"
+    compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.logintumblr"
+        applicationId = "com.example.proyectoapp"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.runtime.livedata)
+    implementation(libs.coil.compose)
     //implementation(libs.androidx.runtime.livedata)
     implementation(libs.gson)
     testImplementation(libs.junit)

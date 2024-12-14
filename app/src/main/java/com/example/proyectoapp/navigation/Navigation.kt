@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.proyectoapp.model.Usuario
 import com.example.proyectoapp.screen.LoginScreen
 import com.example.proyectoapp.screen.MenuScreen
 import com.example.proyectoapp.screen.PortadaScreen
@@ -14,21 +15,22 @@ import com.example.proyectoapp.usuarioViewModel.UsuarioViewModel
 
 
 @Composable
-fun AppAlimentos(modifier:Modifier = Modifier, navigationController: NavHostController, usuarioViewModel: UsuarioViewModel, context:Context) {
+fun AppAlimentos(modifier:Modifier = Modifier, navigationController: NavHostController, usuarioViewModel: UsuarioViewModel, context:Context, usuarioActivo:Usuario?) {
+
     NavHost(
         navController = navigationController,
-        startDestination = Login
+        startDestination = if (usuarioActivo == null) "Portada" else "Menu"
     ) {
-        composable<Portada> {
-            PortadaScreen(navigationController, usuarioViewModel)
+        composable("Portada") {
+            PortadaScreen(navigationController, usuarioViewModel, modifier)
         }
         composable<Login> {
-            LoginScreen(navigationController, usuarioViewModel)
+            LoginScreen(navigationController, usuarioViewModel, context)
         }
         composable<Registro> {
-            RegistroScreen(navigationController, usuarioViewModel)
+            RegistroScreen(navigationController, usuarioViewModel, context)
         }
-        composable<Menu> {
+        composable("Menu") {
             MenuScreen(navigationController, usuarioViewModel)
         }
     }

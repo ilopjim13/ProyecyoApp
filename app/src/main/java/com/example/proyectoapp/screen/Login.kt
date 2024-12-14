@@ -3,7 +3,6 @@ package com.example.proyectoapp.screen
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,21 +14,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -38,8 +35,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -51,9 +46,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
-import com.example.logintumblr.R
+import com.example.proyectoapp.navigation.Menu
 import com.example.proyectoapp.navigation.Registro
 import com.example.proyectoapp.usuarioViewModel.UsuarioViewModel
 
@@ -69,12 +63,7 @@ fun Login(navController: NavController, usuarioViewModel: UsuarioViewModel,conte
     val loginEnable by usuarioViewModel.loginEnable.observeAsState(false)
     val error by usuarioViewModel.error.observeAsState(false)
     val visibility by usuarioViewModel.visibility.observeAsState(false)
-    val showDialog by usuarioViewModel.showDialog.observeAsState(false)
     val errorTexto by usuarioViewModel.errorTexto.observeAsState("")
-
-    if (showDialog) {
-        DialogLogin("Has iniciado sesión correctamente") { usuarioViewModel.showDialog(false) }
-    }
 
     Box(Modifier.fillMaxSize()) {
 
@@ -85,12 +74,20 @@ fun Login(navController: NavController, usuarioViewModel: UsuarioViewModel,conte
         //    contentScale = ContentScale.Crop
         //)
 
+        Box(modifier.padding(top = 16.dp).align(Alignment.TopEnd)) {
+            IconButton({navController.popBackStack()}) {
+                Icon(
+                    imageVector = Icons.Filled.Close,
+                    contentDescription = "Cerrar"
+                )
+            }
+        }
+
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
             Text(
-                "tumblr",
+                "....",
                 fontSize = 62.sp,
-                color = Color.White,
                 fontWeight = FontWeight.ExtraBold,
                 modifier = Modifier.padding(top = 140.dp, bottom = 30.dp)
             )
@@ -114,13 +111,14 @@ fun Login(navController: NavController, usuarioViewModel: UsuarioViewModel,conte
                     onChageValue = { usuarioViewModel.onChangeValue(correo, it) },
                     onClickIcon = { usuarioViewModel.showVisibility(!visibility) })
 
-                MensajeCondiciones()
-
                 Espacio(10.dp)
 
 
                 Boton("Inicia sesión", loginEnable) {
-                    if (usuarioViewModel.checkLogin(correo, pass)) usuarioViewModel.showDialog(true)
+                    if (usuarioViewModel.checkLogin(correo, pass)) {
+                        usuarioViewModel.updateUserActive(correo)
+                        navController.navigate("Menu")
+                    }
                     usuarioViewModel.resetVariables()
                 }
 
@@ -242,7 +240,6 @@ fun OlvidadoContra(onClickNav:() -> Unit) {
 
     Text(
         "¿Has olvidado tu contraseña?",
-        color = Color.White,
         fontSize = 13.sp,
         modifier = Modifier.clickable(onClick = onClickNav)
     )
@@ -256,17 +253,16 @@ fun SeparadorOr() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         HorizontalDivider(
-            thickness = 1.dp, color = Color.White, modifier = Modifier
+            thickness = 1.dp, color = Color.Black, modifier = Modifier
                 .weight(1f)
                 .padding(end = 16.dp)
         )
         Text(
-            "o  ",
-            color = Color.White
+            "o  "
         )
         HorizontalDivider(
             thickness = 1.dp,
-            color = Color.White,
+            color = Color.Black,
             modifier = Modifier.weight(1f)
         )
 
@@ -277,36 +273,15 @@ fun SeparadorOr() {
 fun Registrarse(onClickNav:()-> Unit) {
     Row {
         Text(
-            "¿Acabas de aterrizar en Tumblr? ",
-            color = Color.White,
+            "¿Acabas de aterrizar? ",
             fontSize = 13.sp
         )
         Text(
             "¡Regístrate!",
-            color = Color.White,
             fontSize = 13.sp,
             textDecoration = TextDecoration.Underline,
             modifier = Modifier.clickable(onClick =  onClickNav) )
     }
-}
-
-@Composable
-fun MensajeCondiciones() {
-
-    val annotatedText = buildAnnotatedString {
-        append("Al hacer clic en el botón de inicio de sesión o seguir adelante con el resto de opciones a continuación, aceptas las ")
-        withStyle(style = SpanStyle(textDecoration = TextDecoration.Underline)) { append("Condiciones de uso") }
-        append(" y confirmas que has leído la ")
-        withStyle(style = SpanStyle(textDecoration = TextDecoration.Underline)) { append("Política de privacidad") }
-        append(" de privacidad de Tumblr")
-    }
-
-    Text(
-        text = annotatedText,
-        color = Color.White,
-        fontSize = 11.sp,
-        textAlign = TextAlign.Center
-    )
 }
 
 @Composable
@@ -325,8 +300,7 @@ fun MensajeError(error:Boolean, errorTexto:String) {
         ) {
             Text(
                 errorTexto,
-                textAlign = TextAlign.Center,
-                color = Color.White
+                textAlign = TextAlign.Center
             )
         }
     }
@@ -351,7 +325,6 @@ fun CondicionesPrivacidadText(texto: String, url: String, context: Context) {
         texto,
         fontSize = 13.sp,
         fontWeight = FontWeight.Bold,
-        color = Color.White,
         modifier = Modifier.clickable {
             val intent = Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(url) }
             context.startActivity(intent)
@@ -369,46 +342,6 @@ fun Pie(context: Context) {
     }
 }
 
-
-@Composable
-fun DialogLogin(
-    dialogMenssage:String,
-    onDismissRequest: () -> Unit
-) {
-    Dialog(onDismissRequest = { onDismissRequest() }) {
-        // Draw a rectangle shape with rounded corners inside the dialog
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(180.dp)
-                .padding(16.dp),
-            shape = RoundedCornerShape(16.dp),
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text(
-                    text = dialogMenssage,
-                    modifier = Modifier.padding(16.dp),
-                    textAlign = TextAlign.Center
-                )
-                TextButton(
-                    onClick = { onDismissRequest() }) {
-                    Text("Aceptar")
-                }
-
-            }
-        }
-    }
-}
-
-
-
-
-
 @Composable
 fun textColors() = OutlinedTextFieldDefaults.colors(
     unfocusedBorderColor = Color.White,
@@ -419,9 +352,3 @@ fun textColors() = OutlinedTextFieldDefaults.colors(
 )
 
 
-data class NavigationItem(
-    val title: String,
-    val selectedIcon: ImageVector,
-    val unselectedIcon: ImageVector,
-    val badgeCount: Int? = null
-)
