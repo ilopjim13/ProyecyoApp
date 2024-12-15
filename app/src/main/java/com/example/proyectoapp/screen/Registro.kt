@@ -95,7 +95,6 @@ fun Registro(navController: NavController, usuarioViewModel: UsuarioViewModel,co
 
                 Boton("Registrate", loginEnable) {
                     if (usuarioViewModel.checkRegistro(correo)) {
-                        usuarioViewModel.showDialog(true)
                         usuarioViewModel.saveUsuario(correo, pass)
                     }
                     usuarioViewModel.resetVariables()
@@ -106,12 +105,6 @@ fun Registro(navController: NavController, usuarioViewModel: UsuarioViewModel,co
                     usuarioViewModel.resetVariables()
                     usuarioViewModel.resetError()
                 }
-
-                //SeparadorOr()
-
-                //Espacio(5.dp)
-
-                //InicioConOtros(context)
 
                 Espacio(15.dp)
 
