@@ -3,6 +3,7 @@ package com.example.proyectoapp.screen
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -34,20 +35,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.proyectoapp.navigation.Menu
+import com.example.proyectoapp.R
 import com.example.proyectoapp.navigation.Registro
 import com.example.proyectoapp.usuarioViewModel.UsuarioViewModel
 
@@ -67,15 +66,15 @@ fun Login(navController: NavController, usuarioViewModel: UsuarioViewModel,conte
 
     Box(Modifier.fillMaxSize()) {
 
-        //Image(
-        //    painter = painterResource(R.drawable.fondo),
-        //    contentDescription = "fondo",
-        //    Modifier.fillMaxSize(),
-        //    contentScale = ContentScale.Crop
-        //)
+        Image(
+            painter = painterResource(R.drawable.fondoterminado),
+            contentDescription = "fondo",
+            Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
 
         Box(modifier.padding(top = 16.dp).align(Alignment.TopEnd)) {
-            IconButton({navController.popBackStack()}) {
+            IconButton({navController.navigate("Portada")}) {
                 Icon(
                     imageVector = Icons.Filled.Close,
                     contentDescription = "Cerrar"
@@ -83,14 +82,13 @@ fun Login(navController: NavController, usuarioViewModel: UsuarioViewModel,conte
             }
         }
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(modifier = Modifier.fillMaxSize(),horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
 
-            Text(
-                "....",
-                fontSize = 62.sp,
-                fontWeight = FontWeight.ExtraBold,
-                modifier = Modifier.padding(top = 140.dp, bottom = 30.dp)
-            )
+            Espacio(273.dp)
+
+            Text("¡Sarracenito te echaba de menos!")
+
+            Espacio(15.dp)
 
             Column(
                 Modifier
@@ -124,16 +122,12 @@ fun Login(navController: NavController, usuarioViewModel: UsuarioViewModel,conte
 
 
                 OlvidadoContra {
-                    //navController.navigate(PassOlvidado)
                     usuarioViewModel.resetVariables()
                     usuarioViewModel.resetError()
                 }
 
                 SeparadorOr()
 
-                Espacio(5.dp)
-
-                InicioConOtros(context)
 
                 Espacio(5.dp)
 
@@ -193,46 +187,6 @@ fun PassField(texto: String, placeholder: String, visibility:Boolean, onChageVal
         }
     )
     Espacio(5.dp)
-}
-
-@Composable
-fun InicioConOtros(context: Context) {
-    Button(
-        onClick = {
-            val intent = Intent(Intent.ACTION_VIEW).apply { data = Uri.parse("https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Faccounts.google.com%2F&followup=https%3A%2F%2Faccounts.google.com%2F&ifkv=AcMMx-epW4NV0aofmsIjnucKlvHS4tDh6jdHBqr3-9GmrtBANI4eA_G5Zun5XWYcmIBo3DV1HeOHSw&passive=1209600&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S-2044595131%3A1732884865399079&ddm=1") }
-            context.startActivity(intent) },
-        Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(5.dp),
-        colors = ButtonDefaults.textButtonColors(Color.White, Color.Black)
-    ) {
-        //Image(
-        //    painter = painterResource(R.drawable.g),
-        //    contentDescription = "",
-        //    modifier = Modifier.size(16.dp)
-        //)
-        Text(
-            "  Inicia sesión con Google"
-        )
-    }
-
-    Button(
-        onClick = {
-            val intent = Intent(Intent.ACTION_VIEW).apply { data = Uri.parse("https://appleid.apple.com/auth/authorize?state=eyJyZWRpcmVjdFRvIjoidW5kZWZpbmVkIn0%3D&scope=name%20email&response_type=code&response_mode=form_post&redirect_uri=https%3A%2F%2Fwww.tumblr.com%2Fauth%2Fapple%2Fcallback&client_id=com.tumblr.siwa.redpop.production") }
-            context.startActivity(intent)
-        },
-        Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(5.dp),
-        colors = ButtonDefaults.textButtonColors(Color.White, Color.Black)
-    ) {
-        //Image(
-        //    painter = painterResource(R.drawable.a),
-        //    contentDescription = "",
-        //    modifier = Modifier.size(16.dp)
-        //)
-        Text(
-            "  Inicia sesión con Apple  "
-        )
-    }
 }
 
 @Composable
@@ -313,7 +267,7 @@ fun Boton(texto: String, loginEnable: Boolean, onClickChange: () -> Unit) {
         modifier = Modifier.fillMaxWidth(),
         enabled = loginEnable,
         shape = RoundedCornerShape(5.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00b8ff), contentColor = Color.Black, disabledContentColor = Color.Black, disabledContainerColor = Color.LightGray)
+        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF6D9ED), contentColor = Color.Black, disabledContentColor = Color.Black, disabledContainerColor = Color.LightGray)
     ) {
         Text(texto)
     }
@@ -344,9 +298,9 @@ fun Pie(context: Context) {
 
 @Composable
 fun textColors() = OutlinedTextFieldDefaults.colors(
-    unfocusedBorderColor = Color.White,
+    unfocusedBorderColor = Color.Black,
     unfocusedContainerColor = Color.White,
-    focusedBorderColor = Color.White,
+    focusedBorderColor = Color.Black,
     focusedContainerColor = Color.White,
     cursorColor = Color.Black,
 )

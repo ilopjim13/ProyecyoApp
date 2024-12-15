@@ -3,6 +3,7 @@ package com.example.proyectoapp.screen
 import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,12 +23,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
+import com.example.proyectoapp.R
 import com.example.proyectoapp.navigation.Login
 import com.example.proyectoapp.usuarioViewModel.UsuarioViewModel
 
@@ -43,20 +43,19 @@ fun Registro(navController: NavController, usuarioViewModel: UsuarioViewModel,co
     val loginEnable by usuarioViewModel.loginEnable.observeAsState(false)
     val error by usuarioViewModel.error.observeAsState(false)
     val visibility by usuarioViewModel.visibility.observeAsState(false)
-    val showDialog by usuarioViewModel.showDialog.observeAsState(false)
     val errorTexto by usuarioViewModel.errorTexto.observeAsState("")
 
     Box(Modifier.fillMaxSize()) {
 
-        //Image(
-        //    painter = painterResource(R.drawable.fondo),
-        //    contentDescription = "fondo",
-        //    Modifier.fillMaxSize(),
-        //    contentScale = ContentScale.Crop
-        //)
+        Image(
+            painter = painterResource(R.drawable.fondoterminado),
+            contentDescription = "fondo",
+            Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
 
         Box(modifier.padding(top = 16.dp).align(Alignment.TopEnd)) {
-            IconButton({navController.popBackStack()}) {
+            IconButton({navController.navigate("Portada")}) {
                 Icon(
                     imageVector = Icons.Filled.Close,
                     contentDescription = "Cerrar"
@@ -64,15 +63,13 @@ fun Registro(navController: NavController, usuarioViewModel: UsuarioViewModel,co
             }
         }
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(Modifier.fillMaxSize(),horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
 
-            Text(
-                "tumblr",
-                fontSize = 62.sp,
-                color = Color.White,
-                fontWeight = FontWeight.ExtraBold,
-                modifier = Modifier.padding(top = 140.dp, bottom = 30.dp)
-            )
+            Espacio(220.dp)
+
+            Text("¡Únete al club de los celíacos!")
+
+            Espacio(15.dp)
 
             Column(
                 Modifier
@@ -110,11 +107,11 @@ fun Registro(navController: NavController, usuarioViewModel: UsuarioViewModel,co
                     usuarioViewModel.resetError()
                 }
 
-                SeparadorOr()
+                //SeparadorOr()
 
-                Espacio(5.dp)
+                //Espacio(5.dp)
 
-                InicioConOtros(context)
+                //InicioConOtros(context)
 
                 Espacio(15.dp)
 
@@ -130,12 +127,12 @@ fun IniciarSesion(onClickNav:()-> Unit) {
     Row {
         Text(
             "¿Ya tienes cuenta? ",
-            color = Color.White,
+            color = Color.Black,
             fontSize = 13.sp
         )
         Text(
             "Inicia Sesión",
-            color = Color.White,
+            color = Color.Black,
             textDecoration = TextDecoration.Underline,
             fontSize = 13.sp,
             modifier = Modifier.clickable(onClick = onClickNav)

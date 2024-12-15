@@ -10,7 +10,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.proyectoapp.model.Usuario
 import com.google.gson.Gson
 import org.json.JSONArray
-import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
 
@@ -31,14 +30,9 @@ class UsuarioViewModel(application: Application): AndroidViewModel(application) 
     private val _loginEnable = MutableLiveData<Boolean>()
     var loginEnable: LiveData<Boolean> = _loginEnable
 
-    private val _check = MutableLiveData<Boolean>()
-    var check: LiveData<Boolean> = _check
-
     private val _visibility = MutableLiveData<Boolean>()
     var visibility: LiveData<Boolean> = _visibility
 
-    private val _showDialog = MutableLiveData<Boolean>()
-    var showDialog: LiveData<Boolean> = _showDialog
 
     private val _error = MutableLiveData<Boolean>()
     var error: LiveData<Boolean> = _error
@@ -61,17 +55,9 @@ class UsuarioViewModel(application: Application): AndroidViewModel(application) 
         _loginEnable.value = false
     }
 
-    fun showCheck(check:Boolean) {
-        _check.value = check
-    }
-
     fun resetError() {
         _error.value = false
         _errorTexto.value = ""
-        _check.value = false
-    }
-    fun showDialog(dialog:Boolean) {
-        _showDialog.value = dialog
     }
 
     fun showVisibility(visibility:Boolean) {
@@ -105,25 +91,6 @@ class UsuarioViewModel(application: Application): AndroidViewModel(application) 
         else return true
     }
 
-    fun checkCorreo(correo: String, check: Boolean = true):Boolean {
-        if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
-            _errorTexto.value = "El correo es inválido"
-            _error.value = true
-            return false
-        }else if(usuarios.find { it.correo == correo } == null) {
-            _errorTexto.value = "No existe este correo en Tumblr"
-            _error.value = true
-            return false
-        } else if(!check) {
-            _errorTexto.value = "Debes aceptar el reCAPTCHA"
-            _error.value = true
-            return false
-        } else{
-            _errorTexto.value = ""
-            _error.value = false
-            return true
-        }
-    }
 
     fun updateUserActive(correo: String) {
         val archivo = File(getApplication<Application>().filesDir, "usuarios.json")
