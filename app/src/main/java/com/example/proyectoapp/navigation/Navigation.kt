@@ -22,7 +22,7 @@ fun AppAlimentos(modifier:Modifier = Modifier, navigationController: NavHostCont
         startDestination = if (usuarioActivo == null) "Portada" else "Menu"
     ) {
         composable("Portada") {
-            PortadaScreen(navigationController, usuarioViewModel, modifier)
+            PortadaScreen(navigationController, modifier)
         }
         composable<Login> {
             LoginScreen(navigationController, usuarioViewModel, context)
@@ -31,7 +31,7 @@ fun AppAlimentos(modifier:Modifier = Modifier, navigationController: NavHostCont
             RegistroScreen(navigationController, usuarioViewModel, context)
         }
         composable("Menu") {
-            MenuScreen(navigationController, usuarioViewModel)
+            MenuScreen(modifier)
         }
     }
 }

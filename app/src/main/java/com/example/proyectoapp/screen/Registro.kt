@@ -108,7 +108,7 @@ fun Registro(navController: NavController, usuarioViewModel: UsuarioViewModel,co
 
                 Espacio(15.dp)
 
-                Pie(context)
+                Pie()
 
             }
         }

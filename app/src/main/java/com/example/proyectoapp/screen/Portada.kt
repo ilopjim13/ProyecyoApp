@@ -46,7 +46,7 @@ fun Portada(navController: NavController, modifier: Modifier = Modifier) {
 
             Spacer(Modifier.height(30.dp))
 
-            Text("Bienvenido a ....")
+            Text("Bienvenido a CulinaryHero")
 
             Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding( end = 24.dp, start = 24.dp).fillMaxWidth()) {
                 Button(

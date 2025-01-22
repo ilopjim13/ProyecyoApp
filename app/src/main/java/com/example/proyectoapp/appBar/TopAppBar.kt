@@ -26,12 +26,6 @@ fun MyTopAppBar(onClick:() -> Unit) {
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-
-//            Image(
-//                painter = painterResource(R.drawable.fondoterminado),
-//                contentDescription = "Menu",
-//                modifier = Modifier.size(24.dp)
-//            )
                 Icon(
                     imageVector = Icons.Filled.CrueltyFree,
                     contentDescription = "Menu"
@@ -47,10 +41,10 @@ fun MyTopAppBar(onClick:() -> Unit) {
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color(0xFF001935),
-            titleContentColor = Color.White,
-            navigationIconContentColor = Color.White,
-            actionIconContentColor = Color.White),
+            containerColor = Color(0xFFEFEAC4),
+            titleContentColor = Color.Black,
+            navigationIconContentColor = Color.Black,
+            actionIconContentColor = Color.Black),
         actions = {
             Icon(
                 imageVector = Icons.Filled.MoreVert,

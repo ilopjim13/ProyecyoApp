@@ -1,8 +1,6 @@
 package com.example.proyectoapp.scaffold
 
 import android.app.Application
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,7 +12,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.AddCircleOutline
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.NewReleases
 import androidx.compose.material.icons.filled.SentimentVeryDissatisfied
@@ -42,15 +39,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.proyectoapp.appBar.MyTopAppBar
 import com.example.proyectoapp.navigation.AppAlimentos
-import com.example.proyectoapp.navigation.Menu
-import com.example.proyectoapp.navigation.Portada
 import com.example.proyectoapp.ui.theme.ProyecyoAppTheme
 import com.example.proyectoapp.usuarioViewModel.UsuarioViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 fun MyScaffold(application: Application) {
-    ProyecyoAppTheme {
+    ProyecyoAppTheme(darkTheme = false) {
         val coroutineScope = rememberCoroutineScope()
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }
@@ -89,7 +84,7 @@ fun MyScaffold(application: Application) {
                         .width(360.dp)
                         .fillMaxHeight()
                         .clip(RoundedCornerShape(topEnd = 20.dp, bottomEnd = 20.dp))
-                        .background(Color(0xFF001935))
+                        .background(Color(0xFFEFEAC4))
                 ) {
                     Spacer(modifier = Modifier.height(60.dp))
                     items.forEachIndexed { index, item ->
@@ -105,11 +100,6 @@ fun MyScaffold(application: Application) {
                                     usuarioViewModel.resetVariables()
                                     usuarioViewModel.resetError()
                                     navigationController.navigate("Portada")
-                                }
-                                else {
-
-                                    val intent = Intent(Intent.ACTION_VIEW).apply { data = Uri.parse("https://www.tumblr.com/explore/trending") }
-                                    context.startActivity(intent)
                                 }
                                 coroutineScope.launch { drawerState.close() }
                             },

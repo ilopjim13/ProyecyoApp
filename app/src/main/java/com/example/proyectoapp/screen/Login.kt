@@ -1,8 +1,6 @@
 package com.example.proyectoapp.screen
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -121,10 +119,7 @@ fun Login(navController: NavController, usuarioViewModel: UsuarioViewModel,conte
                 }
 
 
-                OlvidadoContra {
-                    usuarioViewModel.resetVariables()
-                    usuarioViewModel.resetError()
-                }
+                OlvidadoContra()
 
                 SeparadorOr()
 
@@ -139,7 +134,7 @@ fun Login(navController: NavController, usuarioViewModel: UsuarioViewModel,conte
 
                 Espacio(15.dp)
 
-                Pie(context)
+                Pie()
             }
         }
     }
@@ -190,12 +185,11 @@ fun PassField(texto: String, placeholder: String, visibility:Boolean, onChageVal
 }
 
 @Composable
-fun OlvidadoContra(onClickNav:() -> Unit) {
+fun OlvidadoContra() {
 
     Text(
         "¿Has olvidado tu contraseña?",
-        fontSize = 13.sp,
-        modifier = Modifier.clickable(onClick = onClickNav)
+        fontSize = 13.sp
     )
 }
 
@@ -274,25 +268,21 @@ fun Boton(texto: String, loginEnable: Boolean, onClickChange: () -> Unit) {
 }
 
 @Composable
-fun CondicionesPrivacidadText(texto: String, url: String, context: Context) {
+fun CondicionesPrivacidadText(texto: String) {
     Text(
         texto,
         fontSize = 13.sp,
-        fontWeight = FontWeight.Bold,
-        modifier = Modifier.clickable {
-            val intent = Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(url) }
-            context.startActivity(intent)
-        }
+        fontWeight = FontWeight.Bold
     )
 }
 
 @Composable
-fun Pie(context: Context) {
+fun Pie() {
     Row {
-        CondicionesPrivacidadText("Condiciones  ", "https://www.tumblr.com/policy/es/terms-of-service", context)
-        CondicionesPrivacidadText("Privacidad  ", "https://www.tumblr.com/privacy", context)
-        CondicionesPrivacidadText("Empleo  ", "https://www.tumblr.com/jobs", context)
-        CondicionesPrivacidadText("Ayuda", "https://www.tumblr.com/support", context)
+        CondicionesPrivacidadText("Condiciones  ")
+        CondicionesPrivacidadText("Privacidad  ")
+        CondicionesPrivacidadText("Empleo  ")
+        CondicionesPrivacidadText("Ayuda")
     }
 }
 
