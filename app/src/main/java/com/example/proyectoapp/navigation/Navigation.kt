@@ -1,6 +1,5 @@
 package com.example.proyectoapp.navigation
 
-import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -15,7 +14,7 @@ import com.example.proyectoapp.usuarioViewModel.UsuarioViewModel
 
 
 @Composable
-fun AppAlimentos(modifier:Modifier = Modifier, navigationController: NavHostController, usuarioViewModel: UsuarioViewModel, context:Context, usuarioActivo:Usuario?) {
+fun AppAlimentos(modifier:Modifier = Modifier, navigationController: NavHostController, usuarioViewModel: UsuarioViewModel, usuarioActivo:Usuario?) {
 
     NavHost(
         navController = navigationController,
@@ -25,10 +24,10 @@ fun AppAlimentos(modifier:Modifier = Modifier, navigationController: NavHostCont
             PortadaScreen(navigationController, modifier)
         }
         composable<Login> {
-            LoginScreen(navigationController, usuarioViewModel, context)
+            LoginScreen(navigationController, usuarioViewModel)
         }
         composable<Registro> {
-            RegistroScreen(navigationController, usuarioViewModel, context)
+            RegistroScreen(navigationController, usuarioViewModel)
         }
         composable("Menu") {
             MenuScreen(modifier)

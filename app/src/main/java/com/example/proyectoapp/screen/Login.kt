@@ -1,6 +1,5 @@
 package com.example.proyectoapp.screen
 
-import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -49,12 +49,12 @@ import com.example.proyectoapp.navigation.Registro
 import com.example.proyectoapp.usuarioViewModel.UsuarioViewModel
 
 @Composable
-fun LoginScreen(navController: NavController, usuarioViewModel: UsuarioViewModel,context: Context, modifier: Modifier = Modifier) {
-    Login(navController, usuarioViewModel ,context, modifier)
+fun LoginScreen(navController: NavController, usuarioViewModel: UsuarioViewModel, modifier: Modifier = Modifier) {
+    Login(navController, usuarioViewModel, modifier)
 }
 
 @Composable
-fun Login(navController: NavController, usuarioViewModel: UsuarioViewModel,context: Context, modifier: Modifier = Modifier) {
+fun Login(navController: NavController, usuarioViewModel: UsuarioViewModel, modifier: Modifier = Modifier) {
     val correo by usuarioViewModel.correo.observeAsState("")
     val pass by usuarioViewModel.pass.observeAsState("")
     val loginEnable by usuarioViewModel.loginEnable.observeAsState(false)
@@ -156,7 +156,7 @@ fun CorreoField(texto: String, placeholder: String, onChageValue: (String) -> Un
         singleLine = true,
         colors = textColors(),
         placeholder = { Text(placeholder, color = Color.LightGray) },
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().testTag("correoField"),
     )
     Espacio(5.dp)
 }

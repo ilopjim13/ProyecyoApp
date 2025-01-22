@@ -33,7 +33,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -50,7 +49,6 @@ fun MyScaffold(application: Application) {
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }
         val navigationController = rememberNavController()
-        val context = LocalContext.current
         val usuarioViewModel = UsuarioViewModel(application)
         val usuarioActivo = usuarioViewModel.userActive()
 
@@ -126,7 +124,7 @@ fun MyScaffold(application: Application) {
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
                 topBar = { if (navigationController.currentBackStackEntryAsState().value?.destination?.route == "Menu") { MyTopAppBar { coroutineScope.launch { drawerState.open() } } } }){ innerPadding ->
-                AppAlimentos(modifier = Modifier.padding(innerPadding), navigationController, usuarioViewModel, context, usuarioActivo)
+                AppAlimentos(modifier = Modifier.padding(innerPadding), navigationController, usuarioViewModel, usuarioActivo)
             }
         }
     }

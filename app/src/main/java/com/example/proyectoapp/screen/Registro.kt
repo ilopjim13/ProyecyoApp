@@ -1,6 +1,5 @@
 package com.example.proyectoapp.screen
 
-import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,12 +31,12 @@ import com.example.proyectoapp.navigation.Login
 import com.example.proyectoapp.usuarioViewModel.UsuarioViewModel
 
 @Composable
-fun RegistroScreen(navController: NavController, usuarioViewModel: UsuarioViewModel,context: Context, modifier: Modifier = Modifier) {
-    Registro(navController,usuarioViewModel,context,modifier)
+fun RegistroScreen(navController: NavController, usuarioViewModel: UsuarioViewModel,modifier: Modifier = Modifier) {
+    Registro(navController,usuarioViewModel,modifier)
 }
 
 @Composable
-fun Registro(navController: NavController, usuarioViewModel: UsuarioViewModel,context: Context, modifier: Modifier = Modifier) {
+fun Registro(navController: NavController, usuarioViewModel: UsuarioViewModel, modifier: Modifier = Modifier) {
     val correo by usuarioViewModel.correo.observeAsState("")
     val pass by usuarioViewModel.pass.observeAsState("")
     val loginEnable by usuarioViewModel.loginEnable.observeAsState(false)
